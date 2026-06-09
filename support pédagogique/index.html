@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="ivory">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation Management — Ivory Consulting</title>
+<style>
+/* ======================================================
+   THÈMES : data-theme="ivory" (défaut) / data-theme="navy"
+====================================================== */
+:root {
+  --bg-body:       #F7F2E8;
+  --bg-card:       #FFFFFF;
+  --bg-accent:     #EDE8DE;
+  --bg-input:      #F0EBE0;
+  --text-primary:  #1B3A5C;
+  --text-secondary:#4A5568;
+  --text-muted:    #6B7280;
+  --border:        #D6CAAF;
+  --shadow-sm:     rgba(27,58,92,0.08);
+  --shadow-md:     rgba(27,58,92,0.16);
+  --tag-bg:        #EDE8DE;
+  --tag-text:      #1B3A5C;
+  --table-row:     #FFFFFF;
+  --table-alt:     #F7F2E8;
+  --ref-border:    #C4973F;
+  --week-bg:       #F7F2E8;
+  --prog-bar-bg:   #E5DDD0;
+  --neuro-surface: rgba(255,255,255,0.10);
+  --neuro-border:  rgba(255,255,255,0.18);
+}
+
+html[data-theme="navy"] {
+  --bg-body:       #0C1E32;
+  --bg-card:       #172B45;
+  --bg-accent:     #0F2236;
+  --bg-input:      #0F2236;
+  --text-primary:  #F0EAD8;
+  --text-secondary:#B8C8DC;
+  --text-muted:    #7A94B0;
+  --border:        #274563;
+  --shadow-sm:     rgba(0,0,0,0.25);
+  --shadow-md:     rgba(0,0,0,0.45);
+  --tag-bg:        #1E3A58;
+  --tag-text:      #E8D9B8;
+  --table-row:     #172B45;
+  --table-alt:     #0F2236;
+  --ref-border:    #C4973F;
+  --week-bg:       #0F2236;
+  --prog-bar-bg:   #1E3A58;
+  --neuro-surface: rgba(12,30,50,0.55);
+  --neuro-border:  rgba(196,151,63,0.30);
+}
+
+/* Constantes de marque */
+:root {
+  --navy:       #1B3A5C;
+  --gold:       #C4973F;
+  --gold-lt:    #E8C96E;
+  --dark-navy:  #0D2137;
+  --radius-lg:  18px;
+  --radius-md:  12px;
+}
+
+/* ======================================================
+   BASE
+====================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  line-height: 1.65;
+  transition: background .35s, color .35s;
+}
+
+/* ======================================================
+   EN-TÊTE
+====================================================== */
+.header {
+  background: var(--navy);
+  position: sticky; top: 0; z-index: 200;
+  box-shadow: 0 3px 18px rgba(0,0,0,.35);
+}
+.header-inner {
+  max-width: 1340px; margin: 0 auto;
+  padding: 0 28px;
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+
+/* Logo */
+.logo-wrap { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.logo-img { height: 68px; width: auto; object-fit: contain; }
+.logo-text .brand { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.2; }
+.logo-text .sub   { font-size: 10px; color: var(--gold-lt); text-transform: uppercase; letter-spacing: .7px; }
+
+/* Contrôles */
+.header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+
+.prog-toggle { display: flex; background: rgba(255,255,255,.1); border-radius: 32px; padding: 4px; gap: 2px; }
+.prog-btn {
+  padding: 6px 16px; border: none; background: transparent;
+  color: rgba(255,255,255,.7); border-radius: 28px; cursor: pointer;
+  font-size: 12px; font-weight: 600; transition: all .2s; white-space: nowrap;
+}
+.prog-btn.active { background: var(--gold); color: #fff; }
+
+.theme-btn {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 15px; border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.08); color: rgba(255,255,255,.88);
+  border-radius: 32px; cursor: pointer; font-size: 12px; font-weight: 600;
+  transition: background .2s; white-space: nowrap;
+}
+.theme-btn:hover { background: rgba(255,255,255,.18); }
+
+/* ======================================================
+   HERO
+====================================================== */
+.hero {
+  background: linear-gradient(135deg, #0D2137 0%, #1B3A5C 55%, #2A6FA8 100%);
+  padding: 60px 28px 72px; text-align: center; color: #fff;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(196,151,63,.18) 0%, transparent 60%);
+}
+.hero-inner { position: relative; max-width: 860px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(196,151,63,.22); border: 1px solid rgba(196,151,63,.55);
+  color: var(--gold-lt); font-size: 11px; font-weight: 700;
+  letter-spacing: 1.4px; text-transform: uppercase;
+  padding: 5px 18px; border-radius: 22px; margin-bottom: 20px;
+}
+.hero h1 { font-size: clamp(26px, 4.5vw, 46px); font-weight: 800; line-height: 1.15; margin-bottom: 14px; }
+.hero h1 span { color: var(--gold-lt); }
+.hero p { font-size: 16px; color: rgba(255,255,255,.80); max-width: 620px; margin: 0 auto 32px; }
+.hero-stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
+.stat-pill {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);
+  padding: 9px 20px; border-radius: 40px; font-size: 13px; font-weight: 600;
+}
+.stat-pill .val { font-size: 17px; font-weight: 800; color: var(--gold-lt); }
+
+/* ======================================================
+   CONTENU PRINCIPAL
+====================================================== */
+.main { max-width: 1340px; margin: 0 auto; padding: 48px 24px 80px; }
+
+/* Section heading */
+.sec-title {
+  font-size: 20px; font-weight: 800; color: var(--text-primary);
+  display: flex; align-items: center; gap: 9px; margin-bottom: 4px;
+}
+.sec-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+.sep { border: none; height: 2px; background: linear-gradient(90deg,transparent,var(--gold),transparent); opacity: .35; margin: 40px 0; }
+
+/* Programme visible/caché */
+.program-section { display: none; }
+.program-section.active { display: block; }
+
+/* ======================================================
+   CARTE PROGRAMME (HIGHLIGHT)
+====================================================== */
+.prog-highlight {
+  background: linear-gradient(135deg, var(--navy) 0%, #2A5F8F 100%);
+  color: #fff; border-radius: var(--radius-lg); padding: 26px 30px;
+  display: flex; align-items: flex-start; gap: 18px; margin-bottom: 36px;
+}
+html[data-theme="navy"] .prog-highlight { background: linear-gradient(135deg,#1E3A58,#2A5073); }
+.prog-highlight .ph-icon { font-size: 38px; flex-shrink: 0; line-height: 1; }
+.prog-highlight h3 { font-size: 17px; font-weight: 700; margin-bottom: 5px; }
+.prog-highlight p  { font-size: 13px; opacity: .85; line-height: 1.55; }
+
+/* ======================================================
+   STATISTIQUES RAPIDES
+====================================================== */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(145px,1fr)); gap: 14px; margin-bottom: 44px; }
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 18px 14px; text-align: center;
+  box-shadow: 0 2px 8px var(--shadow-sm); transition: transform .2s, box-shadow .2s;
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px var(--shadow-md); }
+.stat-card .sc-ico  { font-size: 26px; margin-bottom: 6px; }
+.stat-card .sc-val  { font-size: 24px; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 3px; }
+.stat-card .sc-lbl  { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+
+/* ======================================================
+   PILIERS PÉDAGOGIQUES
+====================================================== */
+.pillars-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(195px,1fr)); gap: 13px; margin-bottom: 44px; }
+.pillar-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid;
+  border-radius: var(--radius-md); padding: 16px;
+  box-shadow: 0 2px 7px var(--shadow-sm); transition: transform .2s;
+}
+.pillar-card:hover { transform: translateY(-2px); }
+.pillar-card .p-ico { font-size: 22px; margin-bottom: 7px; display: block; }
+.pillar-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 3px; color: var(--text-primary); }
+.pillar-card p  { font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+
+/* ======================================================
+   ACCORDÉON DE MODULES
+====================================================== */
+.module-block {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); margin-bottom: 16px;
+  box-shadow: 0 2px 9px var(--shadow-sm); overflow: hidden;
+  transition: box-shadow .2s;
+}
+.module-block:hover { box-shadow: 0 6px 22px var(--shadow-md); }
+
+.module-header {
+  padding: 18px 24px; cursor: pointer;
+  display: flex; align-items: center; gap: 14px;
+  user-select: none; transition: background .2s;
+}
+.module-header:hover { background: var(--bg-accent); }
+
+.mod-num {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 11px; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800; color: #fff;
+}
+.mod-meta { flex: 1; min-width: 0; }
+.mod-title {
+  font-size: 15px; font-weight: 700; color: var(--text-primary);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 7px;
+}
+.mod-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.mod-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.mod-tag {
+  font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: 18px;
+  background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border);
+}
+.mod-badge {
+  font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 18px;
+}
+.mod-hours { font-size: 12px; font-weight: 700; color: var(--gold); text-align: right; white-space: nowrap; }
+.mod-chevron { font-size: 16px; color: var(--text-muted); transition: transform .28s; margin-left: 6px; }
+.module-block.open .mod-chevron { transform: rotate(90deg); }
+
+.module-body { display: none; padding: 0 24px 22px; border-top: 1px solid var(--border); }
+.module-block.open .module-body { display: block; }
+
+/* Grille de séances */
+.weeks-grid {
+  display: grid; grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+  gap: 13px; padding-top: 18px;
+}
+.week-card {
+  background: var(--week-bg); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 15px;
+}
+.wk-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--text-muted); margin-bottom: 5px; }
+.wk-title { font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 9px; }
+.wk-list { list-style: none; }
+.wk-list li {
+  font-size: 12px; color: var(--text-secondary);
+  padding: 2.5px 0; display: flex; align-items: flex-start; gap: 6px;
+}
+.wk-list li::before { content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+/* Badges de format */
+.fmt-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.fmt {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .4px; padding: 3px 9px; border-radius: 9px;
+}
+.ft { background:#EBF4FF; color:#1D4ED8; }
+.fc { background:#F0FDF4; color:#166534; }
+.fr { background:#FFF7ED; color:#9A3412; }
+.fg { background:#FAF5FF; color:#6B21A8; }
+.fw { background:#FFF1F2; color:#9F1239; }
+.fo { background:#F0F9FF; color:#0369A1; }
+.fn { background:#FEF9C3; color:#854D0E; }
+
+html[data-theme="navy"] .ft { background:#1D3A6A; color:#93C5FD; }
+html[data-theme="navy"] .fc { background:#1A3A28; color:#86EFAC; }
+html[data-theme="navy"] .fr { background:#3A2010; color:#FCA172; }
+html[data-theme="navy"] .fg { background:#2D1A4F; color:#C4B5FD; }
+html[data-theme="navy"] .fw { background:#3A1A20; color:#FCA5A5; }
+html[data-theme="navy"] .fo { background:#0A2A3F; color:#7DD3FC; }
+html[data-theme="navy"] .fn { background:#3A2E00; color:#FDE68A; }
+
+/* Encadré référence */
+.ref-box {
+  margin-top: 12px; padding: 9px 13px;
+  background: var(--bg-body); border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0; font-size: 11.5px; color: var(--text-muted); font-style: italic;
+}
+.ref-box strong { color: var(--gold); font-style: normal; }
+
+/* Encadré objectifs */
+.obj-box {
+  background: var(--bg-accent); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 16px 20px; margin-top: 16px;
+}
+.obj-box h5 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--gold); margin-bottom: 8px; }
+.obj-box ul { list-style: none; }
+.obj-box ul li { font-size: 12px; color: var(--text-secondary); padding: 2px 0; display: flex; gap: 7px; }
+.obj-box ul li::before { content: '✓'; color: #16A34A; font-weight: 700; }
+
+/* ======================================================
+   BLOC NEUROMANAGEMENT
+====================================================== */
+.neuro-section {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2137 100%);
+  color: #fff; border-radius: 22px; padding: 36px 32px;
+  margin-bottom: 44px; position: relative; overflow: hidden;
+}
+html[data-theme="navy"] .neuro-section { background: linear-gradient(135deg,#0C1E32,#1A2E48); border: 1px solid rgba(196,151,63,.25); }
+.neuro-section::after {
+  content: '🧠';
+  position: absolute; right: 26px; top: 20px;
+  font-size: 72px; opacity: .07; line-height: 1; pointer-events: none;
+}
+.neuro-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(196,151,63,.2); border: 1px solid rgba(196,151,63,.5);
+  color: var(--gold-lt); font-size: 11px; font-weight: 700;
+  padding: 5px 15px; border-radius: 20px; margin-bottom: 20px;
+}
+.neuro-section h2 { font-size: 20px; font-weight: 800; margin-bottom: 5px; }
+.neuro-section .ns-sub { font-size: 13px; opacity: .80; margin-bottom: 24px; }
+.neuro-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(210px,1fr)); gap: 12px; }
+.neuro-card {
+  background: var(--neuro-surface); border: 1px solid var(--neuro-border);
+  border-radius: 13px; padding: 16px;
+}
+.neuro-card .nc-ico { font-size: 22px; margin-bottom: 7px; }
+.neuro-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.neuro-card p  { font-size: 11.5px; opacity: .82; line-height: 1.5; }
+
+/* ======================================================
+   FORMATS PÉDAGOGIQUES
+====================================================== */
+.formats-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(190px,1fr)); gap: 13px; margin-bottom: 44px; }
+.fmt-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 18px;
+  box-shadow: 0 2px 7px var(--shadow-sm); transition: transform .2s, box-shadow .2s;
+}
+.fmt-card:hover { transform: translateY(-2px); box-shadow: 0 5px 18px var(--shadow-md); }
+.fmt-card .fi { font-size: 26px; margin-bottom: 9px; }
+.fmt-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: var(--text-primary); }
+.fmt-card p  { font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+.pct-badge {
+  display: inline-block; margin-top: 9px; font-size: 11px; font-weight: 700;
+  padding: 2px 10px; border-radius: 9px; background: var(--tag-bg); color: var(--gold);
+}
+.bar-wrap { background: var(--prog-bar-bg); border-radius: 6px; height: 6px; overflow: hidden; margin-top: 8px; }
+.bar-fill { height: 100%; border-radius: 6px; }
+
+/* ======================================================
+   TABLEAU COMPARATIF
+====================================================== */
+.table-wrap { overflow-x: auto; margin-bottom: 44px; }
+.cmp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cmp-table th {
+  background: var(--navy); color: #fff;
+  padding: 12px 16px; text-align: left; font-weight: 700;
+}
+html[data-theme="navy"] .cmp-table th { background: #1E3A58; }
+.cmp-table th:first-child { border-radius: 12px 0 0 0; }
+.cmp-table th:last-child  { border-radius: 0 12px 0 0; }
+.cmp-table td {
+  padding: 11px 16px; border-bottom: 1px solid var(--border);
+  color: var(--text-secondary); background: var(--table-row); vertical-align: middle;
+}
+.cmp-table tr:nth-child(even) td { background: var(--table-alt); }
+.cmp-table tr:hover td { background: var(--bg-accent); }
+.cmp-table .lbl { font-weight: 600; color: var(--text-primary); }
+.cmp-table .yes { color: #16A34A; font-weight: 700; }
+.cmp-table .no  { color: #9CA3AF; }
+
+/* ======================================================
+   RÉFÉRENCES
+====================================================== */
+.refs-section {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 26px 30px; margin-bottom: 44px;
+  box-shadow: 0 2px 9px var(--shadow-sm);
+}
+.refs-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(230px,1fr)); gap: 16px; margin-top: 16px; }
+.ref-item { display: flex; gap: 11px; align-items: flex-start; }
+.ri-ico {
+  width: 36px; height: 36px; background: var(--gold); border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.ri-text h5 { font-size: 12.5px; font-weight: 700; color: var(--text-primary); }
+.ri-text p  { font-size: 11px; color: var(--text-muted); margin-top: 2px; line-height: 1.4; }
+
+/* ======================================================
+   CONTACT FOOTER
+====================================================== */
+.contact-strip {
+  background: linear-gradient(135deg, var(--dark-navy), #1B3A5C);
+  color: #fff; border-radius: var(--radius-lg); padding: 28px 32px;
+  margin-bottom: 44px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;
+}
+.contact-strip .cs-logo { height: 48px; width: auto; object-fit: contain; }
+.contact-strip .cs-info { flex: 1; min-width: 200px; }
+.contact-strip .cs-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.contact-strip .cs-info p { font-size: 12px; opacity: .85; line-height: 1.8; }
+.contact-strip .cs-info a { color: var(--gold-lt); text-decoration: none; }
+.contact-strip .cs-info a:hover { text-decoration: underline; }
+.contact-strip .cs-cta {
+  display: inline-block; background: var(--gold); color: #fff;
+  font-weight: 700; font-size: 13px; padding: 10px 22px; border-radius: 26px; text-decoration: none;
+}
+
+footer {
+  background: var(--dark-navy); color: rgba(255,255,255,.55);
+  text-align: center; padding: 24px;
+  font-size: 11.5px; line-height: 1.8;
+}
+footer strong { color: var(--gold); }
+footer a { color: var(--gold-lt); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ======================================================
+   ACCESSIBILITÉ & DIVERS
+====================================================== */
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.scroll-top {
+  position: fixed; bottom: 26px; right: 26px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--gold); color: #fff; border: none;
+  font-size: 18px; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .3s, transform .2s;
+  z-index: 300;
+}
+.scroll-top.visible { opacity: 1; pointer-events: auto; }
+.scroll-top:hover { transform: scale(1.1); }
+
+@media (max-width: 640px) {
+  .header-inner { flex-wrap: wrap; height: auto; padding: 10px 16px; gap: 8px; }
+  .hero { padding: 40px 16px; }
+  .main { padding: 28px 14px 60px; }
+  .neuro-section { padding: 24px 18px; }
+  .contact-strip { flex-direction: column; }
+}
+
+@media print {
+  .header { position: relative; }
+  .scroll-top, .theme-btn { display: none; }
+  .module-body { display: block !important; }
+  .program-section { display: block !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================
+     EN-TÊTE
+=================================================== -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <img
+        src="https://guehinadje-ic.github.io/ivoryconsulting/logo-v2-vierge.png"
+        alt="Ivory Consulting"
+        class="logo-img"
+        onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+      >
+      <div id="logo-fallback" style="display:none; width:48px; height:48px; background:var(--gold); border-radius:11px; align-items:center; justify-content:center; font-size:18px; font-weight:900; color:#fff;">IC</div>
+      <div class="logo-text">
+        <div class="brand">Ivory Consulting</div>
+        <div class="sub">Formation Management</div>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <div class="prog-toggle">
+        <button class="prog-btn active" onclick="showProgram('A')" id="btn-A">⚡ Accéléré (10-12 sem.)</button>
+        <button class="prog-btn"        onclick="showProgram('B')" id="btn-B">🎓 Excellence (20-24 sem.)</button>
+      </div>
+      <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">
+        <span id="theme-ico">🌙</span>
+        <span id="theme-lbl">Mode sombre</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================================================
+     HERO
+=================================================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">📚 Programme Pédagogique — Ivory Consulting 2026</div>
+    <h1>Formation Management<br><span>De l'Essentiel à l'Excellence</span></h1>
+    <p>Un parcours structuré, ancré dans les neurosciences cognitives et les modèles reconnus, avec une pédagogie 100 % active — pour transformer durablement vos pratiques managériales.</p>
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="val">2</span> programmes</div>
+      <div class="stat-pill"><span class="val">6</span> grandes compétences</div>
+      <div class="stat-pill"><span class="val">+12</span> formats pédagogiques</div>
+      <div class="stat-pill"><span class="val">100 %</span> interactif</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================
+     CONTENU PRINCIPAL
+=================================================== -->
+<main class="main">
+
+<!-- ======================== PROGRAMME A ======================== -->
+<div class="program-section active" id="prog-A">
+
+  <div class="prog-highlight">
+    <div class="ph-icon">⚡</div>
+    <div>
+      <h3>Programme A — « Management Fondamentaux »</h3>
+      <p>Format accéléré conçu pour les étudiants, les jeunes actifs et les primo-managers souhaitant acquérir des bases solides et opérationnelles. Approche dynamique, orientée pratique, mise en situation immédiate. Idéal pour un déploiement en espace de coworking tel que <strong>Colin's Avenue</strong> ou en école de management.</p>
+    </div>
+  </div>
+
+  <!-- Stats rapides -->
+  <div class="sec-title"><span>📊</span> Vue d'ensemble</div>
+  <div class="sec-sub">Synthèse du programme accéléré</div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="sc-ico">📅</div><div class="sc-val">10-12</div><div class="sc-lbl">Semaines</div></div>
+    <div class="stat-card"><div class="sc-ico">⏱️</div><div class="sc-val">60-72 h</div><div class="sc-lbl">Volume total</div></div>
+    <div class="stat-card"><div class="sc-ico">📦</div><div class="sc-val">6</div><div class="sc-lbl">Modules</div></div>
+    <div class="stat-card"><div class="sc-ico">👥</div><div class="sc-val">8-15</div><div class="sc-lbl">Participants/groupe</div></div>
+    <div class="stat-card"><div class="sc-ico">🏆</div><div class="sc-val">70 %</div><div class="sc-lbl">Pratique & mise en situation</div></div>
+    <div class="stat-card"><div class="sc-ico">📝</div><div class="sc-val">Projet</div><div class="sc-lbl">Intégratif final</div></div>
+  </div>
+
+  <!-- Objectifs -->
+  <div class="sec-title"><span>🎯</span> Objectifs du programme</div>
+  <div class="sec-sub">Ce que l'apprenant sera capable de faire à l'issue de la formation</div>
+  <div class="obj-box" style="margin-bottom:36px;">
+    <h5>Objectifs d'apprentissage</h5>
+    <ul>
+      <li>Comprendre les bases et l'histoire du management</li>
+      <li>Identifier et exercer les rôles du manager au quotidien</li>
+      <li>Découvrir et appliquer les différents styles de management selon les situations</li>
+      <li>Développer ses compétences en communication, écoute et prise de décision</li>
+      <li>Apprendre à motiver, coordonner et faire grandir une équipe</li>
+      <li>Savoir gérer un groupe projet : planification, suivi, résolution de problèmes</li>
+      <li>Maîtriser les outils essentiels de gestion du temps et de la performance</li>
+    </ul>
+  </div>
+
+  <!-- Piliers pédagogiques -->
+  <div class="sec-title"><span>🧱</span> Piliers Pédagogiques</div>
+  <div class="sec-sub">Inspirés du modèle 70/20/10 (Lombardo & Eichinger), du cycle de Kolb et de la méthode Harvard</div>
+  <div class="pillars-grid">
+    <div class="pillar-card" style="border-color:#2A6FA8;"><span class="p-ico">🔬</span><h4>Learning by Doing</h4><p>Cycle d'apprentissage expérientiel de Kolb : Expérience → Réflexion → Conceptualisation → Expérimentation.</p></div>
+    <div class="pillar-card" style="border-color:#2E8B57;"><span class="p-ico">🎭</span><h4>Case-Based Learning</h4><p>Méthode Harvard : résolution de cas réels tirés de TPE/PME caribéennes et françaises.</p></div>
+    <div class="pillar-card" style="border-color:#C4973F;"><span class="p-ico">🎮</span><h4>Gamification</h4><p>Points, défis, équipes en compétition. Renforce la mémorisation de +40 % selon les études INRS.</p></div>
+    <div class="pillar-card" style="border-color:#8B5CF6;"><span class="p-ico">🤝</span><h4>Peer Learning</h4><p>Apprentissage entre pairs, retours d'expérience croisés, co-construction de solutions.</p></div>
+    <div class="pillar-card" style="border-color:#E05050;"><span class="p-ico">🧩</span><h4>Flipped Classroom</h4><p>Théorie en amont (supports + courtes vidéos) ; la séance devient un atelier d'application.</p></div>
+    <div class="pillar-card" style="border-color:#0891B2;"><span class="p-ico">📊</span><h4>Évaluation continue</h4><p>Quiz formatifs, auto-évaluations, grilles de progression, portfolio de compétences.</p></div>
+  </div>
+
+  <!-- Modules détaillés -->
+  <div class="sec-title"><span>📋</span> Programme Semaine par Semaine</div>
+  <div class="sec-sub">Cliquez sur chaque module pour dérouler le détail des séances</div>
+
+  <!-- MODULE 1 -->
+  <div class="module-block open" id="ma1">
+    <div class="module-header" onclick="toggleMod('ma1')">
+      <div class="mod-num" style="background:#2A6FA8;">1</div>
+      <div class="mod-meta">
+        <div class="mod-title">
+          🏗️ Qu'est-ce que le Management ?
+          <span class="mod-badge" style="background:#EBF4FF;color:#2A6FA8;">Semaines 1-2</span>
+        </div>
+        <div class="mod-subtitle">Définition, histoire, fonctions PODC, rôles du manager, auto-diagnostic</div>
+        <div class="mod-tags"><span class="mod-tag">Fondamentaux</span><span class="mod-tag">Auto-diagnostic</span><span class="mod-tag">Rôles</span><span class="mod-tag">PODC</span></div>
+      </div>
+      <div class="mod-hours">12 h<br><small style="color:var(--text-muted);font-weight:400;">4 séances</small></div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="obj-box">
+        <h5>Objectifs du module</h5>
+        <ul>
+          <li>Comprendre les bases et l'histoire du management (Taylor → Mintzberg → Agile)</li>
+          <li>Identifier les fonctions PODC : Planifier, Organiser, Diriger, Contrôler</li>
+          <li>Distinguer manager et leader</li>
+          <li>Réaliser son auto-diagnostic managérial initial</li>
+        </ul>
+      </div>
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaine 1 — Séances 1 & 2 (6 h)</div>
+          <div class="wk-title">Définition du management & histoire</div>
+          <ul class="wk-list">
+            <li>Le management : organiser, diriger, contrôler pour atteindre un objectif commun</li>
+            <li>Évolution historique : Taylor (1900) → Mayo (1930) → Drucker (1950) → Mintzberg (1973) → Agile (2000+)</li>
+            <li>Manager vs Leader : complémentarité et différences clés</li>
+            <li>Les 5 fonctions du manager : fixer les objectifs, organiser, animer, contrôler, résoudre</li>
+            <li>Activité d'introduction : « Qu'est-ce qu'un bon manager pour vous ? »</li>
+            <li>Quiz flash : 10 questions sur les fondamentaux</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fg">Quiz gamifié</span>
+            <span class="fmt fw">Brainstorming</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Drucker (The Practice of Management, 1954), Mintzberg (The Nature of Managerial Work, 1973), Fayol (Administration Industrielle, 1916)</div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaine 2 — Séances 3 & 4 (6 h)</div>
+          <div class="wk-title">Les 10 rôles & auto-diagnostic</div>
+          <ul class="wk-list">
+            <li>Les 10 rôles de Mintzberg : interpersonnels (figurehead, leader, liaison), informationnels (moniteur, diffuseur, porte-parole), décisionnels (entrepreneur, régulateur, allocateur, négociateur)</li>
+            <li>Étude de cas : journée type d'un manager de restaurant en Guadeloupe</li>
+            <li>Jeu de rôle : « Je suis quel rôle ? » — situations à identifier en équipe</li>
+            <li>Auto-diagnostic : quel manager suis-je aujourd'hui ? (grille individuelle)</li>
+            <li>Restitution collective et débriefing</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt fc">Étude de cas</span>
+            <span class="fmt fr">Jeu de rôle</span>
+            <span class="fmt ft">Apport théorique</span>
+            <span class="fmt fo">Auto-évaluation</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Mintzberg (1973), Kouzes & Posner (The Leadership Challenge, 1987)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 2 -->
+  <div class="module-block" id="ma2">
+    <div class="module-header" onclick="toggleMod('ma2')">
+      <div class="mod-num" style="background:#2E8B57;">2</div>
+      <div class="mod-meta">
+        <div class="mod-title">
+          🏢 Gérer une Structure
+          <span class="mod-badge" style="background:#F0FDF4;color:#166534;">Semaines 3-4</span>
+        </div>
+        <div class="mod-subtitle">Organisation, délégation, communication interne, réunions efficaces, méthode DESC</div>
+        <div class="mod-tags"><span class="mod-tag">Organisation</span><span class="mod-tag">Délégation</span><span class="mod-tag">Communication</span></div>
+      </div>
+      <div class="mod-hours">12 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaine 3 (6 h)</div>
+          <div class="wk-title">Structurer & Organiser</div>
+          <ul class="wk-list">
+            <li>Organigrammes : fonctionnel, hiérarchique, matriciel</li>
+            <li>Définir les rôles et responsabilités : outil RACI</li>
+            <li>Déléguer efficacement : critères, niveaux (d'exécution à la décision), suivi</li>
+            <li>Exercice pratique : construire l'organigramme d'une PME fictive (type espace de coworking)</li>
+            <li>Simulation : brief de délégation en 3 minutes chrono</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fw">Atelier pratique</span>
+            <span class="fmt fr">Simulation</span>
+          </div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaine 4 (6 h)</div>
+          <div class="wk-title">Communiquer & Coordonner</div>
+          <ul class="wk-list">
+            <li>Communication descendante, ascendante, transversale</li>
+            <li>Réunion efficace : ordre du jour, facilitation, prise de décision</li>
+            <li>Écoute active : niveaux 1, 2 et 3</li>
+            <li>Feedback structuré : méthode DESC (Décrire, Exprimer, Spécifier, Conséquences)</li>
+            <li>Mise en scène : animer sa première réunion d'équipe (rôles tournants)</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt fr">Jeu de rôle</span>
+            <span class="fmt fw">Mise en scène</span>
+            <span class="fmt fc">Débrief collectif</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Blake & Mouton (Grille managériale, 1964), Lencioni (5 Dysfonctions d'une équipe, 2002)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 3 -->
+  <div class="module-block" id="ma3">
+    <div class="module-header" onclick="toggleMod('ma3')">
+      <div class="mod-num" style="background:#C4973F;">3</div>
+      <div class="mod-meta">
+        <div class="mod-title">
+          🧭 Les Styles de Management
+          <span class="mod-badge" style="background:#FFF7ED;color:#9A3412;">Semaines 5-6</span>
+        </div>
+        <div class="mod-subtitle">Directif, Persuasif, Participatif, Délégatif — adapter son style à chaque collaborateur</div>
+        <div class="mod-tags"><span class="mod-tag">Hersey-Blanchard</span><span class="mod-tag">Situationnel</span><span class="mod-tag">Participatif</span><span class="mod-tag">Collaboratif</span></div>
+      </div>
+      <div class="mod-hours">12 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaine 5 (6 h)</div>
+          <div class="wk-title">Les 4 styles situationnels</div>
+          <ul class="wk-list">
+            <li><strong>Style 1 — Directif :</strong> fort sur la tâche, faible sur la relation. Le manager donne les consignes et décide seul. Adapté aux profils M1 (débutants).</li>
+            <li><strong>Style 2 — Persuasif :</strong> fort sur la tâche et la relation. Le manager explique et motive pour faire adhérer. Adapté aux profils M2 (désillusion).</li>
+            <li><strong>Style 3 — Participatif :</strong> le manager consulte l'équipe avant de décider. Adapté aux profils M3 (compétents mais peu confiants).</li>
+            <li><strong>Style 4 — Délégatif :</strong> le manager confie beaucoup d'autonomie. Adapté aux profils M4 (experts autonomes).</li>
+            <li>Jeu de cartes : « Quel style pour quelle situation ? »</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fg">Jeu de cartes</span>
+            <span class="fmt fc">Cas pratiques</span>
+          </div>
+          <div class="ref-box"><strong>Référence :</strong> Hersey & Blanchard (Situational Leadership, 1969/1977), Ken Blanchard & Spencer Johnson (Le Manager Minute)</div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaine 6 (6 h)</div>
+          <div class="wk-title">Leadership Transformationnel & Collaboratif</div>
+          <ul class="wk-list">
+            <li>Leadership transactionnel vs transformationnel (Burns & Bass)</li>
+            <li>Les 4 « I » du leadership transformationnel : Influence idéalisée, Motivation inspirante, Stimulation intellectuelle, Considération individualisée</li>
+            <li>Management participatif : co-construction et intelligence collective</li>
+            <li>Management collaboratif : outils, rituels, culture de confiance</li>
+            <li>Cas concret : transformation d'une équipe en tension dans un hôtel guadeloupéen</li>
+            <li>Atelier co-construction : « Notre manifeste d'équipe »</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fc">Cas terrain</span>
+            <span class="fmt fw">Co-construction</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Burns (Leadership, 1978), Bass & Avolio (1994), Laloux (Reinventing Organizations, 2014)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 4 -->
+  <div class="module-block" id="ma4">
+    <div class="module-header" onclick="toggleMod('ma4')">
+      <div class="mod-num" style="background:#8B5CF6;">4</div>
+      <div class="mod-meta">
+        <div class="mod-title">
+          🧩 Les Compétences du Manager & Profils
+          <span class="mod-badge" style="background:#FAF5FF;color:#6B21A8;">Semaines 7-8</span>
+        </div>
+        <div class="mod-subtitle">Compétences clés, DISC, MBTI simplifié, Process Communication — adapter son management</div>
+        <div class="mod-tags"><span class="mod-tag">DISC</span><span class="mod-tag">MBTI</span><span class="mod-tag">Process Com</span><span class="mod-tag">Compétences</span></div>
+      </div>
+      <div class="mod-hours">12 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaine 7 (6 h)</div>
+          <div class="wk-title">Les compétences du manager & DISC</div>
+          <ul class="wk-list">
+            <li><strong>6 compétences clés :</strong> Leadership · Communication · Écoute · Organisation · Gestion du stress · Prise de décision</li>
+            <li>Auto-évaluation de ses forces et axes de développement</li>
+            <li><strong>DISC :</strong> D (Dominant) — I (Influent) — S (Stable) — C (Consciencieux)</li>
+            <li>Comprendre les besoins et réflexes de chaque profil au travail</li>
+            <li>Atelier : adapter son feedback selon le profil DISC du collaborateur</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fo">Auto-évaluation</span>
+            <span class="fmt fg">Jeu des profils</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Marston (Emotions of Normal People, 1928), Kouzes & Posner (The Leadership Challenge), Goleman (Emotional Intelligence, 1995)</div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaine 8 (6 h)</div>
+          <div class="wk-title">MBTI, Process Communication & Carte d'Équipe</div>
+          <ul class="wk-list">
+            <li>Les 4 axes MBTI : E/I · S/N · T/F · J/P — introduction accessible et non dogmatique</li>
+            <li>Process Communication : 6 types de personnalité, canaux de communication adaptés</li>
+            <li>Les « drivers » et besoins psychologiques au travail</li>
+            <li>Simulation : gérer un conflit entre deux profils opposés</li>
+            <li>Construire la « carte de mon équipe » — visualiser et valoriser la diversité</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fr">Simulation conflit</span>
+            <span class="fmt fo">Carte d'équipe</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Taibi Kahler (Process Communication Model), Myers-Briggs (MBTI), Marston (DISC)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 5 -->
+  <div class="module-block" id="ma5">
+    <div class="module-header" onclick="toggleMod('ma5')">
+      <div class="mod-num" style="background:#0891B2;">5</div>
+      <div class="mod-meta">
+        <div class="mod-title">
+          🗓️ Motivation, Performance & Outils de Gestion
+          <span class="mod-badge" style="background:#F0F9FF;color:#0369A1;">Semaines 9-10</span>
+        </div>
+        <div class="mod-subtitle">Théories de la motivation, outils de gestion du temps, planning, OKR, outils digitaux</div>
+        <div class="mod-tags"><span class="mod-tag">Maslow</span><span class="mod-tag">Herzberg</span><span class="mod-tag">Eisenhower</span><span class="mod-tag">OKR</span></div>
+      </div>
+      <div class="mod-hours">12 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaine 9 (6 h)</div>
+          <div class="wk-title">Motivation & Performance d'équipe</div>
+          <ul class="wk-list">
+            <li>Pyramide de Maslow : les 5 besoins hiérarchiques appliqués au travail</li>
+            <li>Théorie biFactorielle de Herzberg : facteurs d'hygiène vs facteurs de motivation</li>
+            <li>Théorie X/Y de McGregor : deux visions de l'être humain au travail</li>
+            <li>Autodétermination (Deci & Ryan) : motivations intrinsèques vs extrinsèques</li>
+            <li>La reconnaissance au travail : impacts mesurables sur la performance (+30 % selon Gallup)</li>
+            <li>Jeu de rôle : « Qui démotive qui ? » — scénarios de management</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fr">Jeu de rôle</span>
+            <span class="fmt fg">Quiz flash</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Maslow (1943), Herzberg (1959), McGregor (The Human Side of Enterprise, 1960), Deci & Ryan (1985)</div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaine 10 (6 h)</div>
+          <div class="wk-title">Outils de Gestion : Temps, Planning, Projections</div>
+          <ul class="wk-list">
+            <li>Matrice d'Eisenhower : Urgent/Important — les 4 quadrants en pratique</li>
+            <li>Time Blocking & méthode Pomodoro pour managers</li>
+            <li>Diagramme de Gantt : planifier un projet en équipe</li>
+            <li>OKR (Objectives & Key Results) — la méthode de Google/Intel</li>
+            <li>Tour d'horizon des outils digitaux : Notion, Trello, Asana, Monday</li>
+            <li>Cas pratique : construire le planning d'un service sur 4 semaines</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt fo">Outils digitaux</span>
+            <span class="fmt fc">Cas pratique</span>
+            <span class="fmt fw">Mise en pratique</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Doerr (Measure What Matters, 2018), Allen (GTD, 2001), Matrice Eisenhower</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 6 -->
+  <div class="module-block" id="ma6">
+    <div class="module-header" onclick="toggleMod('ma6')">
+      <div class="mod-num" style="background:#E05050;">6</div>
+      <div class="mod-meta">
+        <div class="mod-title">
+          🚀 Application Pratique & Projet Intégratif
+          <span class="mod-badge" style="background:#FFF1F2;color:#9F1239;">Semaines 11-12</span>
+        </div>
+        <div class="mod-subtitle">Développer son équipe, gérer le changement, étude de cas intégrative, soutenance finale</div>
+        <div class="mod-tags"><span class="mod-tag">Tuckman</span><span class="mod-tag">Changement</span><span class="mod-tag">Projet final</span></div>
+      </div>
+      <div class="mod-hours">12 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaine 11 (6 h)</div>
+          <div class="wk-title">Développer son équipe & Gérer le changement</div>
+          <ul class="wk-list">
+            <li>Modèle de Tuckman : Forming, Storming, Norming, Performing, Adjourning</li>
+            <li>Entretien de développement : accompagner la progression</li>
+            <li>Gestion du changement : courbe de Kübler-Ross adaptée au management</li>
+            <li>Résistances au changement : identifier, comprendre, accompagner</li>
+            <li>Étude de cas : « Une équipe de 5 étudiants doit rendre un dossier en 2 semaines » — Qui fait quoi ? Quel style adopter ? Comment gérer un retard ?</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt ft">Théorie</span>
+            <span class="fmt fw">Workshop</span>
+            <span class="fmt fc">Étude de cas</span>
+          </div>
+          <div class="ref-box"><strong>Références :</strong> Tuckman (1965), Kübler-Ross (1969), Kotter (Leading Change, 1996)</div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaine 12 (6 h)</div>
+          <div class="wk-title">Projet Intégratif Final 🎓</div>
+          <ul class="wk-list">
+            <li>En groupes de 3-4 : présentation d'un « Plan Managérial » (diagnostic + actions)</li>
+            <li>Soutenance : 15 min de présentation + 10 min de questions</li>
+            <li>Évaluation croisée par les pairs (grille fournie)</li>
+            <li>Remise du portfolio de compétences individuel</li>
+            <li>Bilan collectif du parcours + feedback formateur</li>
+          </ul>
+          <div class="fmt-row">
+            <span class="fmt fc">Projet intégratif</span>
+            <span class="fmt fw">Soutenance</span>
+            <span class="fmt fo">Portfolio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /prog-A -->
+
+<!-- ======================== PROGRAMME B ======================== -->
+<div class="program-section" id="prog-B">
+
+  <div class="prog-highlight">
+    <div class="ph-icon">🎓</div>
+    <div>
+      <h3>Programme B — « Management Excellence »</h3>
+      <p>Parcours complet pour managers confirmés, dirigeants de TPE/PME et professionnels souhaitant aller en profondeur — incluant un <strong>bloc exclusif Neuromanagement &amp; QVCT</strong> basé sur la méthode La Fabrique à Neurones, certifiée scientifiquement. Idéal pour un déploiement dans un espace professionnel tel que <strong>Colin's Avenue</strong>, une école de management ou en intra-entreprise.</p>
+    </div>
+  </div>
+
+  <!-- Stats rapides B -->
+  <div class="sec-title"><span>📊</span> Vue d'ensemble</div>
+  <div class="sec-sub">Programme complet — 6 phases progressives</div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="sc-ico">📅</div><div class="sc-val">20-24</div><div class="sc-lbl">Semaines</div></div>
+    <div class="stat-card"><div class="sc-ico">⏱️</div><div class="sc-val">140-160 h</div><div class="sc-lbl">Volume total</div></div>
+    <div class="stat-card"><div class="sc-ico">📦</div><div class="sc-val">6</div><div class="sc-lbl">Phases</div></div>
+    <div class="stat-card"><div class="sc-ico">🧠</div><div class="sc-val">Phase 5</div><div class="sc-lbl">Neuromanagement exclusif</div></div>
+    <div class="stat-card"><div class="sc-ico">👥</div><div class="sc-val">6-12</div><div class="sc-lbl">Participants/groupe</div></div>
+    <div class="stat-card"><div class="sc-ico">🎯</div><div class="sc-val">QVCT</div><div class="sc-lbl">Certification visée</div></div>
+  </div>
+
+  <!-- BLOC NEUROMANAGEMENT -->
+  <div class="neuro-section">
+    <div class="neuro-badge">🧠 Méthode La Fabrique à Neurones — Certification validée scientifiquement</div>
+    <h2>Bloc Neuromanagement & QVCT</h2>
+    <p class="ns-sub">8 ateliers cognitifs intégrés en Phase 5 (Semaines 17-20). Des managers qui comprennent leur cerveau et celui de leurs équipes performent différemment.</p>
+    <div class="neuro-grid">
+      <div class="neuro-card"><div class="nc-ico">⚡</div><h4>Motivation & Engagement</h4><p>Circuits dopaminergiques, récompense, sens au travail. Créer les conditions neurobiologiques de l'engagement durable.</p></div>
+      <div class="neuro-card"><div class="nc-ico">🔄</div><h4>Adaptation au Changement</h4><p>Plasticité cérébrale et résistance. Techniques pour faciliter la neuroadaptation face aux transformations.</p></div>
+      <div class="neuro-card"><div class="nc-ico">💬</div><h4>Communication Cognitive</h4><p>Biais cognitifs, cognition sociale, empathie neurale. Adapter sa communication au fonctionnement réel du cerveau.</p></div>
+      <div class="neuro-card"><div class="nc-ico">❤️</div><h4>Intelligence Émotionnelle</h4><p>Amygdale, cortex préfrontal et régulation émotionnelle. Développer son QE managérial avec ancrage neuroscientifique.</p></div>
+      <div class="neuro-card"><div class="nc-ico">🎯</div><h4>Prise de Décision</h4><p>Système 1 vs Système 2 (Kahneman). Éviter les biais décisionnels. Décider mieux sous pression.</p></div>
+      <div class="neuro-card"><div class="nc-ico">🤝</div><h4>Dynamique d'Équipe</h4><p>Ocytocine, synchronisation neurale, contagion émotionnelle. Créer la cohésion par la neurobiologie du lien social.</p></div>
+      <div class="neuro-card"><div class="nc-ico">🎯</div><h4>Concentration & Performance</h4><p>Ondes cérébrales Alpha/Bêta, flow, deep work. Protocoles pour maintenir la performance cognitive collective.</p></div>
+      <div class="neuro-card"><div class="nc-ico">🌿</div><h4>QVCT & Santé Cérébrale</h4><p>Stress chronique, cortisol, burnout neuronal. Construire un environnement de travail protecteur du cerveau.</p></div>
+    </div>
+  </div>
+
+  <!-- Phases B -->
+  <div class="sec-title"><span>📋</span> Programme Excellence — 6 Phases</div>
+  <div class="sec-sub">Double profondeur théorique + applications stratégiques terrain</div>
+
+  <div class="module-block open" id="mb1">
+    <div class="module-header" onclick="toggleMod('mb1')">
+      <div class="mod-num" style="background:#2A6FA8;">1</div>
+      <div class="mod-meta">
+        <div class="mod-title">🏗️ Fondations du Management Avancé<span class="mod-badge" style="background:#EBF4FF;color:#2A6FA8;">Sem. 1-4 — 28 h</span></div>
+        <div class="mod-subtitle">Histoire approfondie, posture, identité managériale, éthique, management interculturel</div>
+      </div>
+      <div class="mod-hours">28 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaines 1-2 (14 h)</div>
+          <div class="wk-title">Théories & Évolutions</div>
+          <ul class="wk-list">
+            <li>École classique : Taylor, Fayol, Weber (bureaucratie rationnelle)</li>
+            <li>École des relations humaines : Mayo, Maslow, Herzberg, McGregor</li>
+            <li>École systémique & contingence : Mintzberg, Lawrence & Lorsch</li>
+            <li>Management moderne : Agilité, Holacratie, Entreprise libérée (Laloux)</li>
+            <li>Analyse comparative : TPE guadeloupéenne, ETI française, start-up</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt ft">Théorie approfondie</span><span class="fmt fc">Analyse comparative</span></div>
+          <div class="ref-box"><strong>Références :</strong> Mintzberg (Structure et Dynamique, 1979), Laloux (2014), Fayol (1916)</div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaines 3-4 (14 h)</div>
+          <div class="wk-title">Identité, Posture & Éthique</div>
+          <ul class="wk-list">
+            <li>Construction de l'identité managériale : valeurs, ancres de carrière (Schein)</li>
+            <li>Éthique professionnelle et RSE : responsabilités du manager</li>
+            <li>Dilemmes éthiques : cas pratiques de terrain</li>
+            <li>Management interculturel : dimensions Hofstede, spécificités caribéennes</li>
+            <li>Atelier : rédiger sa charte managériale personnelle</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt fw">Charte personnelle</span><span class="fmt fr">Dilemmes éthiques</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-block" id="mb2">
+    <div class="module-header" onclick="toggleMod('mb2')">
+      <div class="mod-num" style="background:#2E8B57;">2</div>
+      <div class="mod-meta">
+        <div class="mod-title">🏢 Gérer & Structurer une Organisation<span class="mod-badge" style="background:#F0FDF4;color:#166534;">Sem. 5-8 — 28 h</span></div>
+        <div class="mod-subtitle">Design organisationnel, Lean, RH opérationnelle, droit du travail DOM, tableaux de bord</div>
+      </div>
+      <div class="mod-hours">28 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaines 5-6 (14 h)</div>
+          <div class="wk-title">Organisation & Processus</div>
+          <ul class="wk-list">
+            <li>Design organisationnel : flat, hierarchical, matrix, holacracy</li>
+            <li>Cartographie des processus : Lean, VSM (Value Stream Mapping)</li>
+            <li>KPI opérationnels vs stratégiques : construire son dashboard</li>
+            <li>Approche kaizen : amélioration continue au quotidien</li>
+            <li>Cas fil rouge : restructurer un service hôtelier en difficulté (Guadeloupe)</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt ft">Théorie</span><span class="fmt fc">Cas fil rouge</span><span class="fmt fo">Lean/VSM</span></div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaines 7-8 (14 h)</div>
+          <div class="wk-title">RH Opérationnelle & Contrôle</div>
+          <ul class="wk-list">
+            <li>Cycle RH : recrutement, intégration, développement, rétention</li>
+            <li>Entretiens annuels et entretiens professionnels</li>
+            <li>Droit du travail pour managers (spécificités DOM – Guadeloupe)</li>
+            <li>Pilotage de l'absentéisme : indicateurs, plans d'action</li>
+            <li>Simulation : conduire un entretien difficile (recadrage, sous-performance)</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt ft">Droit & RH</span><span class="fmt fr">Simulation entretien</span><span class="fmt fo">Dashboard</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-block" id="mb3">
+    <div class="module-header" onclick="toggleMod('mb3')">
+      <div class="mod-num" style="background:#C4973F;">3</div>
+      <div class="mod-meta">
+        <div class="mod-title">🧭 Leadership & Modèles Avancés<span class="mod-badge" style="background:#FFF7ED;color:#9A3412;">Sem. 9-12 — 28 h</span></div>
+        <div class="mod-subtitle">Panorama complet des modèles, gestion de crise, coaching managérial, CNV, gestion des conflits</div>
+      </div>
+      <div class="mod-hours">28 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaines 9-10 (14 h)</div>
+          <div class="wk-title">Leadership — Panorama complet</div>
+          <ul class="wk-list">
+            <li>Hersey-Blanchard revisité : maturité situationnelle avancée</li>
+            <li>Servant Leadership (Greenleaf) : manager au service de l'équipe</li>
+            <li>Leadership authentique (Bill George) : valeurs, transparence, résilience</li>
+            <li>Leadership culturel : Hofstede et dimensions culturelles en DOM</li>
+            <li>Simulation : « The Leadership Challenge » (Kouzes & Posner)</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt ft">Comparatif modèles</span><span class="fmt fg">Simulation</span><span class="fmt fc">Cas culturels</span></div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaines 11-12 (14 h)</div>
+          <div class="wk-title">Coaching Managérial & Gestion des Conflits</div>
+          <ul class="wk-list">
+            <li>Posture coach-manager : différence coaching/conseil/tutorat</li>
+            <li>Outils de coaching : méthode GROW (Goals, Reality, Options, Will)</li>
+            <li>Communication Non-Violente (Rosenberg) : 4 composantes</li>
+            <li>Thomas-Kilmann : 5 modes de gestion des conflits</li>
+            <li>Jeu de rôle : coaching d'un collaborateur en sous-performance</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt fr">Jeu de rôle</span><span class="fmt fo">GROW/CNV</span><span class="fmt fw">Simulation crise</span></div>
+          <div class="ref-box"><strong>Références :</strong> Rosenberg (CNV, 2003), Greenleaf (Servant Leadership, 1977), Whitmore (Coaching for Performance)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-block" id="mb4">
+    <div class="module-header" onclick="toggleMod('mb4')">
+      <div class="mod-num" style="background:#8B5CF6;">4</div>
+      <div class="mod-meta">
+        <div class="mod-title">🧩 Intelligence des Personnes & Culture d'Équipe<span class="mod-badge" style="background:#FAF5FF;color:#6B21A8;">Sem. 13-16 — 28 h</span></div>
+        <div class="mod-subtitle">Profils psychologiques approfondis, Ennéagramme, motivation individuelle, diversité, culture afrocaribéenne</div>
+      </div>
+      <div class="mod-hours">28 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaines 13-14 (14 h)</div>
+          <div class="wk-title">Profils avancés & Motivation individuelle</div>
+          <ul class="wk-list">
+            <li>DISC et MBTI approfondis : combinaisons, zones de tension, synergies</li>
+            <li>Ennéagramme : introduction aux 9 types de personnalité</li>
+            <li>Autodétermination (Deci & Ryan) : motivations intrinsèques</li>
+            <li>Reconnaissance et gratitude : impacts mesurables sur la performance</li>
+            <li>Workshop : concevoir un plan de motivation individuel par collaborateur</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt ft">Approfondissement</span><span class="fmt fw">Plan individuel</span></div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaines 15-16 (14 h)</div>
+          <div class="wk-title">Culture d'Équipe, Diversité & Ancrage Local</div>
+          <ul class="wk-list">
+            <li>Créer et maintenir une culture d'équipe forte</li>
+            <li>Management intergénérationnel : Baby-Boomers, X, Millennials, Z</li>
+            <li>Diversité et inclusion en management (genre, culture, neurodiversité)</li>
+            <li>Ancrage caribéen : Koudmen, Ubuntu antillais, Lyannaj — ce que les neurosciences confirment</li>
+            <li>Atelier co-construction : « Notre charte de fonctionnement d'équipe »</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt fc">Terrain local</span><span class="fmt fw">Co-construction</span><span class="fmt ft">Sociologie</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-block" id="mb5">
+    <div class="module-header" onclick="toggleMod('mb5')" style="background: linear-gradient(90deg, rgba(27,58,92,.12), var(--bg-card));">
+      <div class="mod-num" style="background:var(--gold);">5</div>
+      <div class="mod-meta">
+        <div class="mod-title">
+          🧠 Neuromanagement & QVCT
+          <span class="mod-badge" style="background:var(--gold);color:#fff;">EXCLUSIF — Sem. 17-20 — 28 h</span>
+        </div>
+        <div class="mod-subtitle">Méthode La Fabrique à Neurones × Ivory Consulting — 8 ateliers cognitifs certifiants</div>
+        <div class="mod-tags"><span class="mod-tag">Neurosciences</span><span class="mod-tag">QVCT</span><span class="mod-tag">Fabrique à Neurones</span><span class="mod-tag">Certifiant</span></div>
+      </div>
+      <div class="mod-hours" style="color:var(--gold);">28 h<br><small style="color:var(--text-muted);">Certifiant</small></div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card" style="border-color:var(--gold);">
+          <div class="wk-label">Semaines 17-18 (14 h) — Ateliers 1 à 4</div>
+          <div class="wk-title">🧠 Cerveau, Motivation & Décision</div>
+          <ul class="wk-list">
+            <li><strong>Atelier 1 :</strong> Motivation — circuits dopaminergiques, récompense, sens au travail</li>
+            <li><strong>Atelier 2 :</strong> Adaptation au changement — plasticité cérébrale, gestion de l'incertitude</li>
+            <li><strong>Atelier 3 :</strong> Communication cognitive — biais, empathie neurale, écoute profonde</li>
+            <li><strong>Atelier 4 :</strong> Intelligence émotionnelle — amygdale, régulation, QE en équipe</li>
+            <li>Carte neuro-cognitive individuelle + auto-évaluation</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt fn">Ateliers cognitifs</span><span class="fmt fo">Auto-évaluation</span><span class="fmt ft">Neurosciences</span></div>
+        </div>
+        <div class="week-card" style="border-color:var(--gold);">
+          <div class="wk-label">Semaines 19-20 (14 h) — Ateliers 5 à 8</div>
+          <div class="wk-title">🧠 Performance, QVCT & Santé Cérébrale</div>
+          <ul class="wk-list">
+            <li><strong>Atelier 5 :</strong> Prise de décision — Système 1/2 (Kahneman), biais managériaux</li>
+            <li><strong>Atelier 6 :</strong> Dynamique d'équipe — ocytocine, synchronisation neurale, cohésion</li>
+            <li><strong>Atelier 7 :</strong> Concentration & Flow — ondes Alpha/Bêta, deep work, performance durable</li>
+            <li><strong>Atelier 8 :</strong> QVCT & Prévention — burnout neuronal, charge mentale, environnement protecteur</li>
+            <li>Plan d'action QVCT personnel + restitution collective</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt fn">Ateliers cognitifs</span><span class="fmt fo">Plan QVCT</span><span class="fmt fc">Application terrain</span></div>
+          <div class="ref-box"><strong>Références :</strong> La Fabrique à Neurones (méthode certifiée), Kahneman (Thinking Fast and Slow, 2011), Goleman (Emotional Intelligence, 1995), INRS (ROI QVCT 2 à 5€/€ investi)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-block" id="mb6">
+    <div class="module-header" onclick="toggleMod('mb6')">
+      <div class="mod-num" style="background:#0891B2;">6</div>
+      <div class="mod-meta">
+        <div class="mod-title">🚀 Développement Stratégique & Certification<span class="mod-badge" style="background:#F0F9FF;color:#0369A1;">Sem. 21-24 — 28 h</span></div>
+        <div class="mod-subtitle">Stratégie, prospective, management Agile, OKR à l'échelle, projet certifiant final</div>
+      </div>
+      <div class="mod-hours">28 h</div>
+      <span class="mod-chevron">▶</span>
+    </div>
+    <div class="module-body">
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="wk-label">Semaines 21-22 (14 h)</div>
+          <div class="wk-title">Stratégie & Prospective</div>
+          <ul class="wk-list">
+            <li>Analyse stratégique : SWOT, PESTEL, Porter (5 Forces)</li>
+            <li>Management de projet : Prince2, Scrum, Kanban</li>
+            <li>Prospective : scénarios, signaux faibles, planification à 3 ans</li>
+            <li>Déploiement OKR à l'échelle d'une organisation</li>
+            <li>Simulation : développer une nouvelle activité en Guadeloupe</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt ft">Stratégie</span><span class="fmt fo">OKR/Agile</span><span class="fmt fc">Simulation</span></div>
+        </div>
+        <div class="week-card">
+          <div class="wk-label">Semaines 23-24 (14 h)</div>
+          <div class="wk-title">Projet Certifiant Final 🏆</div>
+          <ul class="wk-list">
+            <li>Diagnostic organisationnel 360° d'une structure réelle ou fictive</li>
+            <li>Plan managérial intégrant neurosciences, modèles et outils</li>
+            <li>Soutenance devant jury (formateur + pairs) — 30 min + Q&R</li>
+            <li>Portfolio de compétences managériales enrichi</li>
+            <li>Positionnement post-formation et plan de développement personnel</li>
+          </ul>
+          <div class="fmt-row"><span class="fmt fc">Projet certifiant</span><span class="fmt fw">Soutenance jury</span><span class="fmt fo">Portfolio</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /prog-B -->
+
+<hr class="sep">
+
+<!-- ======================== FORMATS PÉDAGOGIQUES ======================== -->
+<div class="sec-title"><span>🎨</span> Formats Pédagogiques</div>
+<div class="sec-sub">Mix optimal : 30 % théorie — 70 % pratique, selon le modèle 70/20/10 (Lombardo & Eichinger)</div>
+<div class="formats-grid">
+  <div class="fmt-card"><div class="fi">📖</div><h4>Mini-cours théorique</h4><p>Apports concis (20-30 min max), visuels mémorisables, toujours connectés à des situations réelles.</p><div class="pct-badge">30 % du temps</div><div class="bar-wrap"><div class="bar-fill" style="width:30%;background:#2A6FA8;"></div></div></div>
+  <div class="fmt-card"><div class="fi">🎭</div><h4>Jeux de rôle</h4><p>Simulations managériales réalistes, rotation des rôles, débrief structuré avec grille d'observation.</p><div class="pct-badge">20 % du temps</div><div class="bar-wrap"><div class="bar-fill" style="width:20%;background:#C4973F;"></div></div></div>
+  <div class="fmt-card"><div class="fi">🔍</div><h4>Études de cas</h4><p>Cas réels tirés de TPE/PME caribéennes et françaises. Résolution en équipe, restitution orale.</p><div class="pct-badge">20 % du temps</div><div class="bar-wrap"><div class="bar-fill" style="width:20%;background:#2E8B57;"></div></div></div>
+  <div class="fmt-card"><div class="fi">🎮</div><h4>Gamification</h4><p>Quiz flash, challenges chronométrés, cartes de jeu thématiques, escape room managériale.</p><div class="pct-badge">10 % du temps</div><div class="bar-wrap"><div class="bar-fill" style="width:10%;background:#8B5CF6;"></div></div></div>
+  <div class="fmt-card"><div class="fi">🤝</div><h4>Ateliers collaboratifs</h4><p>Co-construction, world café, brainstorming structuré, design thinking appliqué au management.</p><div class="pct-badge">15 % du temps</div><div class="bar-wrap"><div class="bar-fill" style="width:15%;background:#E05050;"></div></div></div>
+  <div class="fmt-card"><div class="fi">🧠</div><h4>Ateliers cognitifs</h4><p>Exercices neuroscientifiques, auto-évaluations, cartes mentales, ancrage sensoriel des apprentissages.</p><div class="pct-badge">5 % du temps</div><div class="bar-wrap"><div class="bar-fill" style="width:5%;background:#0891B2;"></div></div></div>
+</div>
+
+<hr class="sep">
+
+<!-- ======================== COMPARATIF ======================== -->
+<div class="sec-title"><span>⚖️</span> Comparatif des Deux Programmes</div>
+<div class="sec-sub">Choisir le parcours adapté au profil et aux objectifs</div>
+<div class="table-wrap">
+  <table class="cmp-table">
+    <thead>
+      <tr><th>Critère</th><th>⚡ Programme A — Accéléré</th><th>🎓 Programme B — Excellence</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="lbl">Durée</td><td>10-12 semaines</td><td>20-24 semaines</td></tr>
+      <tr><td class="lbl">Volume horaire</td><td>60-72 heures</td><td>140-160 heures</td></tr>
+      <tr><td class="lbl">Cible principale</td><td>Étudiants, jeunes actifs, primo-managers</td><td>Managers confirmés, dirigeants TPE/PME</td></tr>
+      <tr><td class="lbl">Fondamentaux management</td><td><span class="yes">✓</span> Essentiels</td><td><span class="yes">✓✓</span> Approfondis</td></tr>
+      <tr><td class="lbl">Modèles de leadership</td><td><span class="yes">✓</span> 4 modèles clés</td><td><span class="yes">✓✓</span> Panorama complet</td></tr>
+      <tr><td class="lbl">Profils de personnalité</td><td><span class="yes">✓</span> DISC + MBTI intro</td><td><span class="yes">✓✓</span> Approfondi + Ennéagramme</td></tr>
+      <tr><td class="lbl">Motivation & Performance</td><td><span class="yes">✓</span> Maslow, Herzberg, McGregor</td><td><span class="yes">✓✓</span> + Autodétermination, reconnaissance</td></tr>
+      <tr><td class="lbl">Outils de gestion</td><td><span class="yes">✓</span> Opérationnels</td><td><span class="yes">✓✓</span> Opérationnels + Stratégiques</td></tr>
+      <tr><td class="lbl">Bloc Neuromanagement</td><td><span class="no">—</span> Non inclus</td><td><span class="yes">✓</span> 8 ateliers cognitifs (La Fabrique à Neurones)</td></tr>
+      <tr><td class="lbl">QVCT / Santé au travail</td><td><span class="no">—</span></td><td><span class="yes">✓</span> Module dédié</td></tr>
+      <tr><td class="lbl">Management stratégique</td><td><span class="no">—</span></td><td><span class="yes">✓</span> SWOT/PESTEL/Porter</td></tr>
+      <tr><td class="lbl">Droit du travail DOM</td><td><span class="no">—</span></td><td><span class="yes">✓</span> Spécificités Guadeloupe incluses</td></tr>
+      <tr><td class="lbl">Évaluation finale</td><td>Projet intégratif + soutenance</td><td>Projet certifiant + jury externe</td></tr>
+      <tr><td class="lbl">Tarif indicatif</td><td>1 500 – 2 500 €</td><td>3 500 – 6 000 €</td></tr>
+      <tr><td class="lbl">Format recommandé</td><td>Présentiel ou hybride</td><td>Hybride ou distanciel partiel</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ======================== RÉFÉRENCES ======================== -->
+<div class="refs-section">
+  <div class="sec-title"><span>📚</span> Références & Auteurs Fondateurs</div>
+  <div class="sec-sub">Les épaules des géants sur lesquels repose ce programme</div>
+  <div class="refs-grid">
+    <div class="ref-item"><div class="ri-ico">📘</div><div class="ri-text"><h5>Mintzberg — Structure et Dynamique</h5><p>Les 5 configurations organisationnelles, les 10 rôles du manager, la bureaucratie professionnelle.</p></div></div>
+    <div class="ref-item"><div class="ri-ico">📗</div><div class="ri-text"><h5>Hersey & Blanchard — Situational Leadership</h5><p>Les 4 styles adaptés à la maturité du collaborateur — modèle le plus utilisé en formation mondiale.</p></div></div>
+    <div class="ref-item"><div class="ri-ico">📙</div><div class="ri-text"><h5>Kahneman — Thinking Fast and Slow</h5><p>Système 1 (intuitif) vs Système 2 (analytique) — fondement du neuromanagement décisionnel.</p></div></div>
+    <div class="ref-item"><div class="ri-ico">📕</div><div class="ri-text"><h5>Goleman — Emotional Intelligence</h5><p>QE en management, autorégulation, empathie, compétences sociales — 5 dimensions clés.</p></div></div>
+    <div class="ref-item"><div class="ri-ico">📓</div><div class="ri-text"><h5>La Fabrique à Neurones</h5><p>8 ateliers cognitifs scientifiquement validés — neurosciences appliquées au travail et à la QVCT.</p></div></div>
+    <div class="ref-item"><div class="ri-ico">📔</div><div class="ri-text"><h5>Laloux — Reinventing Organizations</h5><p>Les 5 stades évolutifs des organisations — du rouge à l'opale. Référence mondiale de l'entreprise libérée.</p></div></div>
+    <div class="ref-item"><div class="ri-ico">📒</div><div class="ri-text"><h5>Rosenberg — Communication Non-Violente</h5><p>4 composantes : Observations, Sentiments, Besoins, Demandes — pour résoudre les conflits.</p></div></div>
+    <div class="ref-item"><div class="ri-ico">📃</div><div class="ri-text"><h5>Doerr — Measure What Matters (OKR)</h5><p>Méthode OKR utilisée par Google, Intel, LinkedIn — objectifs ambitieux et résultats mesurables.</p></div></div>
+  </div>
+</div>
+
+<!-- ======================== CONTACT ======================== -->
+<div class="contact-strip">
+  <img src="https://guehinadje-ic.github.io/ivoryconsulting/logo-v2-vierge.png" alt="Ivory Consulting" class="cs-logo" onerror="this.style.display='none'">
+  <div class="cs-info">
+    <h4>Ivory Consulting — Nadjé Guehi</h4>
+    <p>
+      📧 <a href="mailto:guehinadje@ivoryconsulting.fr">guehinadje@ivoryconsulting.fr</a><br>
+      📞 <a href="tel:0690419166">0690 41 91 66</a><br>
+      🌐 <a href="https://guehinadje-ic.github.io/ivoryconsulting/" target="_blank">guehinadje-ic.github.io/ivoryconsulting</a><br>
+      📍 Le Gosier, 97190 — Guadeloupe · Interventions : Guadeloupe · Martinique · Guyane
+    </p>
+    <p style="margin-top:6px;opacity:.75;font-size:11px;">Méthode La Fabrique à Neurones · QVCT × Neurosciences × Culture Afrocaribéenne</p>
+  </div>
+  <a href="https://calendly.com/guehinadje-ivoryconsulting/audit" class="cs-cta" target="_blank">Réserver un audit gratuit</a>
+</div>
+
+</main><!-- /main -->
+
+<!-- ======================== PIED DE PAGE ======================== -->
+<footer>
+  <p><strong>Ivory Consulting</strong> — Formation Management 2026 · <strong>Nadjé Guehi</strong> ·
+    <a href="mailto:guehinadje@ivoryconsulting.fr">guehinadje@ivoryconsulting.fr</a> ·
+    <a href="tel:0690419166">0690 41 91 66</a> ·
+    <a href="https://guehinadje-ic.github.io/ivoryconsulting/" target="_blank">ivoryconsulting.fr</a>
+  </p>
+  <p>Méthode La Fabrique à Neurones · QVCT × Neurosciences × Culture Afrocaribéenne · Le Gosier, Guadeloupe</p>
+</footer>
+
+<!-- Bouton retour haut -->
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
+
+<!-- ======================== JS ======================== -->
+<script>
+// --- THÈME ---
+// L'attribut data-theme="ivory" est déjà posé sur <html>.
+// Le bouton bascule entre "ivory" et "navy".
+let currentTheme = 'ivory';
+
+function toggleTheme() {
+  currentTheme = currentTheme === 'ivory' ? 'navy' : 'ivory';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  document.getElementById('theme-ico').textContent = currentTheme === 'navy' ? '☀️' : '🌙';
+  document.getElementById('theme-lbl').textContent = currentTheme === 'navy' ? 'Mode clair' : 'Mode sombre';
+}
+
+// --- PROGRAMMES ---
+function showProgram(prog) {
+  document.querySelectorAll('.program-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.prog-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('prog-' + prog).classList.add('active');
+  document.getElementById('btn-' + prog).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// --- ACCORDÉONS ---
+function toggleMod(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// --- BARRES DE PROGRESSION (animation à l'entrée) ---
+const bars = document.querySelectorAll('.bar-fill');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const w = el.style.width;
+      el.style.transition = 'none';
+      el.style.width = '0';
+      requestAnimationFrame(() => {
+        el.style.transition = 'width 1s ease';
+        el.style.width = w;
+      });
+      observer.unobserve(el);
+    }
+  });
+}, {threshold: 0.5});
+bars.forEach(b => observer.observe(b));
+
+// --- SCROLL TOP ---
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollBtn').classList.toggle('visible', window.scrollY > 400);
+});
+</script>
+</body>
+</html>
